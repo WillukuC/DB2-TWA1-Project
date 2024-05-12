@@ -83,6 +83,7 @@ def get_plot_comparison_bar_graph(metric):
     # Adding the legend and showing the plot
     plt.legend(loc='upper right')
     plt.grid()
+    plt.savefig('Top 5 Countries + Canada (2011-2020).png')
     plt.show()
 
     # Close MongoDB connection

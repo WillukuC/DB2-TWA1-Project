@@ -42,6 +42,7 @@ def get_fossil_energy_data(country_name):
     # Show plot
     plt.grid(True)
     plt.tight_layout()
+    plt.savefig('Energy Consumption.png')
     plt.show()
 
 
