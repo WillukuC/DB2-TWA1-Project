@@ -82,7 +82,7 @@ def generate_pie_charts(year, countries):
         plt.suptitle(f'Sustainable Energy Consumption Distribution by Country ({year})')
         plt.tight_layout()
         plt.savefig(os.path.join(images_path, 'Country_Consumption.png'))
-        plt.show()
+        print('Country_Consumption.png')
 
     # Close MongoDB connection
     client.close()

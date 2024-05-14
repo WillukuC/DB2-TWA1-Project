@@ -53,7 +53,7 @@ def generate_nuclear_graph(countries):
         plt.legend(labels=n_labels, loc='upper right')
         plt.tight_layout()
         plt.savefig(os.path.join(images_path, 'Nuclear_Energy_Comparison.png'))
-        plt.show()
+        print('Nuclear_Energy_Comparison.png')
 
         # Close MongoDB connection
         client.close()

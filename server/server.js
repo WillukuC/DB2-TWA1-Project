@@ -15,17 +15,42 @@ app.get('/hello', function(req, res) {
     res.send('Hello World')
 });
 
+app.get('/countries', async function(req, res) {
+
+})
+
 app.get('/graph', async function(req, res) {
     graphType = req.query.type
-
-    const scriptPath = path.join(__dirname, 'testing', 'testscript.py')
-    console.log(scriptPath)
+    console.log('graphType: ', graphType);
+    let scriptPath
+    switch (graphType) {
+        case 'fossil':
+            scriptPath = path.join(__dirname, 'database', 'Line_Graph.py')
+            break;
+        case 'sustainable':
+            scriptPath = path.join(__dirname, 'database', 'Pie_Chart.py')
+            break;
+        case 'top':
+            scriptPath = path.join(__dirname, 'database', 'Bar_Graph.py')
+            break;
+        case 'nuclear':
+            scriptPath = path.join(__dirname, 'database', 'Nuclear_Graph.py')
+            break;
+        case 'test':
+            scriptPath = path.join(__dirname, 'testing', 'testscript.py')
+            break;
+        default:
+            console.error('Invalid query parameter');
+            res.status(400)
+            res.send({message: 'Invalid query parameter'})
+    }
     try {
         const args = [1, 2, 3]
-        await runScriptModule.runPythonScript(scriptPath, args)
 
-        const imagePath = path.join(__dirname, 'simple_plot.png')
-        console.log('imagePath: ', imagePath);
+        // Running the script
+        const imageName = await runScriptModule.runPythonScript(scriptPath, args)
+
+        const imagePath = path.join(__dirname, 'images', imageName).trim()
 
         // Check if the image file exists
         if (!fs.existsSync(imagePath)) {

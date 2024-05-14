@@ -91,7 +91,7 @@ def get_plot_comparison_bar_graph(metric):
     plt.legend(loc='upper right')
     plt.grid()
     plt.savefig(os.path.join(images_path, 'Top_5_Countries_+_Canada_(2011-2020).png'))
-    plt.show()
+    print('Top_5_Countries_+_Canada_(2011-2020).png')
 
     # Close MongoDB connection
     client.close()

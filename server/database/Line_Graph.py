@@ -50,7 +50,7 @@ def get_fossil_energy_data(country_name):
     plt.grid(True)
     plt.tight_layout()
     plt.savefig(os.path.join(images_path, 'Energy_Consumption.png'))
-    plt.show()
+    print('Energy_Consumption.png')
 
 
 fossil_energy_data = get_fossil_energy_data(arguments[1])
