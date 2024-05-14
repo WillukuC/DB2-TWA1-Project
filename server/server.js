@@ -15,7 +15,9 @@ app.get('/hello', function(req, res) {
     res.send('Hello World')
 });
 
-app.get('/testscript', async function(req, res) {
+app.get('/graph', async function(req, res) {
+    graphType = req.query.type
+
     const scriptPath = path.join(__dirname, 'testing', 'testscript.py')
     console.log(scriptPath)
     try {
