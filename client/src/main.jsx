@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import HomePage from './HomePage'
-import GraphSelection from './GraphSelection'
-import GraphDisplay from './GraphDisplay'
+import HomePage from './Views/HomePage'
+import GraphSelection from './Views/GraphSelection'
+import GraphDisplay from './Views/GraphDisplay'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 

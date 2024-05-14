@@ -1,14 +1,19 @@
 import { useState } from 'react'
 import React from 'react'
+import SelectBarGraph from '../Components/SelectBarGraph';
+import SelectLineGraph from '../Components/SelectLineGraph';
+import SelectPieGraph from '../Components/SelectPieGraph';
 
 function GraphSelection() {
 
     const [graphType, setGraphType] = useState("");
 
+    // code for switching panels based on the current graph goes here
+
     return (
         <div>
             <a href="/" className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-absolute top-0 start-0 ms-4'>Back</a>
-            <div className="container">
+            <div className="container panel panel-default">
                 <div className="row justify-content-center">
                     <div className="col-3">
                         <div className="card btn border-3" onClick={() => setGraphType("line")} >
