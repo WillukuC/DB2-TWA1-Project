@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from pymongo import MongoClient
 import sys
 import numpy as np
+import os
 
 arguments = sys.argv
 
@@ -25,6 +26,12 @@ def get_plot_comparison_bar_graph(metric):
     client = MongoClient('mongodb+srv://gonzaloba2002:Mt6o7Cd2SzSTM3Mw@cluster0.wwmzyc9.mongodb.net/')
     db = client['energy_consumption']
     collection = db['country_energy']
+
+    # Get the directory of the script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Construct the path to the 'images' folder
+    images_path = os.path.join(script_dir, '..', 'images')
 
     # Query the top 5 countries with the highest greenhouse gas emissions for the year 2020
     top_countries_2020 = list(collection.find({'year': 2020}).sort(metric, -1).limit(5))
@@ -83,7 +90,7 @@ def get_plot_comparison_bar_graph(metric):
     # Adding the legend and showing the plot
     plt.legend(loc='upper right')
     plt.grid()
-    plt.savefig('Top 5 Countries + Canada (2011-2020).png')
+    plt.savefig(os.path.join(images_path, 'Top_5_Countries_+_Canada_(2011-2020).png'))
     plt.show()
 
     # Close MongoDB connection

@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from pymongo import MongoClient
 import sys
+import os
 
 def generate_pie_charts(year, countries):
     # Connect to MongoDB
@@ -10,6 +11,12 @@ def generate_pie_charts(year, countries):
 
     energies = ['biofuel_consumption', 'solar_consumption', 'hydro_consumption', 'wind_consumption']
     e_label = ['Biofuel', 'Solar', 'Hydro', 'Wind']
+
+    # Get the directory of the script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Construct the path to the 'images' folder
+    images_path = os.path.join(script_dir, '..', 'images')
 
     # Initialize figure for subplots
     num_countries = len(countries)
@@ -37,7 +44,7 @@ def generate_pie_charts(year, countries):
             ax.legend(labels = e_label, loc='upper right')
             plt.suptitle(f'Sustainable Energy Consumption {country} ({year})')
             plt.tight_layout()
-            plt.savefig('Country Consumption.png')
+            plt.savefig(os.path.join(images_path, 'Country_Consumption.png'))
             plt.show()
         else:
             print(f"No data found for {country} in {year}")
@@ -74,7 +81,7 @@ def generate_pie_charts(year, countries):
         ax.legend(labels = e_label, loc='upper right')
         plt.suptitle(f'Sustainable Energy Consumption Distribution by Country ({year})')
         plt.tight_layout()
-        plt.savefig('Country Consumption.png')
+        plt.savefig(os.path.join(images_path, 'Country_Consumption.png'))
         plt.show()
 
     # Close MongoDB connection

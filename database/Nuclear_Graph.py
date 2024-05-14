@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from pymongo import MongoClient
 import sys
+import os
 
 # This visualization will help us understand how nuclear energy usage has changed over the years and its contribution to overall 
 # electricity generation and per capita consumption.
@@ -13,6 +14,12 @@ def generate_nuclear_graph(countries):
 
     nuclear_fields = ['nuclear_consumption', 'nuclear_electricity', 'nuclear_energy_per_capita']
     n_labels = ['Nuclear Consumption', 'Nuclear Electricity', 'Nuclear per Capita']
+
+    # Get the directory of the script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Construct the path to the 'images' folder
+    images_path = os.path.join(script_dir, '..', 'images')
 
     # Initialize figure for subplots
     num_countries = len(countries)
@@ -45,7 +52,7 @@ def generate_nuclear_graph(countries):
         plt.xticks(years, rotation=90)
         plt.legend(labels=n_labels, loc='upper right')
         plt.tight_layout()
-        plt.savefig('Nuclear Energy Comparison.png')
+        plt.savefig(os.path.join(images_path, 'Nuclear_Energy_Comparison.png'))
         plt.show()
 
         # Close MongoDB connection
@@ -88,7 +95,7 @@ def generate_nuclear_graph(countries):
 
         plt.suptitle('Nuclear Energy Trends by Country')
         plt.tight_layout()
-        plt.savefig('Nuclear Energy Comparison.png')
+        plt.savefig(os.path.join(images_path, 'Nuclear_Energy_Comparison.png'))
         plt.show()
 
         # Close MongoDB connection
