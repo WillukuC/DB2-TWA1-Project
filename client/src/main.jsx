@@ -7,9 +7,9 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
-  { path: "/", element: <HomePage /> },
-  { path: "/countries", element: <GraphSelection /> },
-  { path: "/graphs", element: <GraphDisplay /> },
+  { path: "/home", element: <HomePage /> },
+  { path: "/selection", element: <GraphSelection /> },
+  { path: "/graph", element: <GraphDisplay /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

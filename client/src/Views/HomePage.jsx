@@ -10,7 +10,7 @@ function HomePage() {
             <img src="/map.png" alt="Map" />
           </div>
           <p className='fs-5'>AtlasCharted is your premier destination for visually exploring comprehensive data sets about countries worldwide. Our intuitive platform offers dynamic graphs and charts that effortlessly convey complex information, empowering users to gain insightful perspectives on various aspects of each nation's demographics, economics, and more.</p>
-          <a href='/countries' className='btn bg-light text-dark btn-outline-primary border-3 mt-4' style={{ fontFamily: 'sans-serif' }}>Explore Data</a>
+          <a href='/selection' className='btn bg-light text-dark btn-outline-primary border-3 mt-4' style={{ fontFamily: 'sans-serif' }}>Explore Data</a>
         </div>
       </div>
     </div>

@@ -1,44 +1,136 @@
 import { useState } from 'react'
 import React from 'react'
-import SelectBarGraph from '../Components/SelectBarGraph';
-import SelectLineGraph from '../Components/SelectLineGraph';
-import SelectPieGraph from '../Components/SelectPieGraph';
+import SelectFossilEnergy from '../Components/SelectFossilEnergy';
+import SelectRenewableEnergy from '../Components/SelectRenewableEnergy';
+import SelectTop5Countries from '../Components/SelectTop5Countries';
+import SelectNuclearGraph from '../Components/SelectNuclearGraph';
 
 function GraphSelection() {
 
-    const [graphType, setGraphType] = useState("");
+    const [graphOption, setGraphOption] = useState("fossil");
+
+    const showPanel = (panelNum) => {
+        var panel = document.getElementById(panelNum)
+        panel.classList.remove('d-none')
+        panel.classList.add('d-block')
+    }
+
+    const hidePanel = (panelNum) => {
+        var panel = document.getElementById(panelNum)
+        panel.classList.remove('d-block')
+        panel.classList.add('d-none')
+    }
 
     // code for switching panels based on the current graph goes here
+    const changeGraph = () => {
+        switch (graphOption) {
+            case "fossil":
+                hidePanel("panel1")
+                showPanel("panel2")
+                hidePanel("panel3")
+                hidePanel("panel4")
+                hidePanel("panel5")
+                break;
+            case "renewable":
+                hidePanel("panel1")
+                hidePanel("panel2");
+                showPanel("panel3");
+                hidePanel("panel4");
+                hidePanel("panel5");
+                break;
+            case "top5":
+                hidePanel("panel1")
+                hidePanel("panel2");
+                hidePanel("panel3");
+                showPanel("panel4");
+                hidePanel("panel5");
+                break;
+            case "nuclear":
+                hidePanel("panel1")
+                hidePanel("panel2");
+                hidePanel("panel3");
+                hidePanel("panel4");
+                showPanel("panel5");
+                break;
+            default:
+        }
+    }
+
+    const hideGraphPanel = () => {
+        showPanel("panel1")
+        hidePanel("panel2");
+        hidePanel("panel3");
+        hidePanel("panel4");
+        hidePanel("panel5")
+    }
+
+    const countries = [
+        "Australia",
+        "Brazil",
+        "Canada",
+        "Denmark",
+        "Egypt",
+        "France",
+        "Germany",
+        "Hungary",
+        "India",
+        "Japan",
+        "Kenya",
+        "Luxembourg",
+        "Malaysia",
+    ];
 
     return (
         <div>
-            <a href="/" className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-absolute top-0 start-0 ms-4'>Back</a>
-            <div className="container panel panel-default">
+            <a href="/home" className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-absolute top-0 start-0 ms-4'>To Homepage</a>
+            <div className="container panel panel-default d-block" id='panel1'>
                 <div className="row justify-content-center">
                     <div className="col-3">
-                        <div className="card btn border-3" onClick={() => setGraphType("line")} >
-                            <img src="/chart-line.png" className='mx-auto' alt="Line Chart" style={{ width: '50px' }} />
-                            <p>Line Chart</p>
+                        <div className="card btn border-3" onClick={() => setGraphOption("fossil")} >
+                            <img src="/graph-fossil.png" className='mx-auto' alt="Fossil Energy Consumption" style={{ width: '50px' }} />
+                            <p>Fossil Energy Consumption</p>
                         </div>
                     </div>
                     <div className="col-3">
-                        <div className="card btn border-3" onClick={() => setGraphType("bar")} >
-                            <img src="/chart-bar.png" className='mx-auto' alt="Bar Chart" style={{ width: '50px' }} />
-                            <p>Bar Chart</p>
+                        <div className="card btn border-3" onClick={() => setGraphOption("renewable")} >
+                            <img src="/graph-renewable.png" className='mx-auto' alt="Sustainable Energy Consumption" style={{ width: '50px' }} />
+                            <p>Sustainable Energy Consumption</p>
                         </div>
                     </div>
                     <div className="col-3">
-                        <div className="card btn border-3" onClick={() => setGraphType("pie")} >
-                            <img src="/chart-pie.png" className='mx-auto' alt="Pie Chart" style={{ width: '50px' }} />
-                            <p>Pie Chart</p>
+                        <div className="card btn border-3" onClick={() => setGraphOption("top5")} >
+                            <img src="/graph-top5.png" className='mx-auto' alt="Top 5 Countries" style={{ width: '50px' }} />
+                            <p>Top 5 Countries Graph</p>
+                        </div>
+                    </div>
+                    <div className="col-3">
+                        <div className="card btn border-3" onClick={() => setGraphOption("nuclear")} >
+                            <img src="/graph-nuclear.png" className='mx-auto' alt="Custom Graph" style={{ width: '50px' }} />
+                            <p>Nuclear Energy Consumption</p>
                         </div>
                     </div>
                 </div>
                 <div className="mt-3 row">
                     <div className="col text-center">
-                        <div className="btn bg-light text-dark btn-outline-primary border-3" onClick={() => console.log(graphType)}>Select Graph Type</div>
+                        <div className="btn bg-light text-dark btn-outline-primary border-3" onClick={() => changeGraph()}>Select Graph Type</div>
                     </div>
                 </div>
+            </div>
+            <div className="container panel panel-default d-none" id='panel2'>
+                <button className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-relative top-0 start-0 ms-4' onClick={() => hideGraphPanel()}>Back</button>
+                <SelectFossilEnergy countries={countries} />
+            </div>
+            <div className="container panel panel-default d-none" id='panel3'>
+                <button className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-relative top-0 start-0 ms-4' onClick={() => hideGraphPanel()}>Back</button>
+                <SelectRenewableEnergy countries={countries} />
+            </div>
+            <div className="container panel panel-default d-none" id='panel4'>
+                <button className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-relative top-0 start-0 ms-4' onClick={() => hideGraphPanel()}>Back</button>
+                <SelectTop5Countries />
+            </div>
+            <div className="container panel panel-default d-none" id='panel5'>
+                <button className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-relative top-0 start-0 ms-4' onClick={() => hideGraphPanel()}>Back</button>
+                <SelectNuclearGraph countries={countries} />
             </div>
         </div>
     )
