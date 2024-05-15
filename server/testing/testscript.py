@@ -24,4 +24,5 @@ ax.grid(True) # will put background grid
 #Add a legend
 ax.legend()
 # Save the plot
-plt.savefig('simple_plot.png', dpi=300, format='png', transparent=False, bbox_inches='tight', pad_inches=0.1)
+plt.savefig('./images/simple_plot.png', dpi=300, format='png', transparent=False, bbox_inches='tight', pad_inches=0.1)
+print('simple_plot.png')

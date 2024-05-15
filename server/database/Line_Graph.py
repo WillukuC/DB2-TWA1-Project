@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pymongo import MongoClient
 import sys
+import os
 
 arguments = sys.argv
 
@@ -10,6 +11,12 @@ def get_fossil_energy_data(country_name):
     client = MongoClient('mongodb+srv://gonzaloba2002:Mt6o7Cd2SzSTM3Mw@cluster0.wwmzyc9.mongodb.net/')
     db = client['energy_consumption']
     collection = db['country_energy']
+
+    # Get the directory of the script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    # Construct the path to the 'images' folder
+    images_path = os.path.join(script_dir, '..', 'images')
 
     # Query data for the specified country
     cursor = collection.find({'country': country_name})
@@ -42,8 +49,8 @@ def get_fossil_energy_data(country_name):
     # Show plot
     plt.grid(True)
     plt.tight_layout()
-    plt.savefig('Energy Consumption.png')
-    plt.show()
+    plt.savefig(os.path.join(images_path, 'Energy_Consumption.png'))
+    print('Energy_Consumption.png')
 
 
 fossil_energy_data = get_fossil_energy_data(arguments[1])
