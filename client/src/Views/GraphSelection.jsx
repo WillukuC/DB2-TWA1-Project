@@ -80,6 +80,12 @@ function GraphSelection() {
         "Malaysia",
     ];
 
+    const years = [];
+    const currentYear = new Date().getFullYear()
+    for (let year = currentYear; year >= 1970; year--) {
+      years.push(year);
+    }
+
     return (
         <div>
             <a href="/home" className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-absolute top-0 start-0 ms-4'>To Homepage</a>
@@ -117,19 +123,19 @@ function GraphSelection() {
                 </div>
             </div>
             <div className="container panel panel-default d-none" id='panel2'>
-                <button className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-relative top-0 start-0 ms-4' onClick={() => hideGraphPanel()}>Back</button>
+                <button className='btn bg-light text-dark btn-outline-primary border-3 position-relative top-0 start-0 ms-4 my-3' onClick={() => hideGraphPanel()}>Back</button>
                 <SelectFossilEnergy countries={countries} />
             </div>
             <div className="container panel panel-default d-none" id='panel3'>
-                <button className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-relative top-0 start-0 ms-4' onClick={() => hideGraphPanel()}>Back</button>
-                <SelectRenewableEnergy countries={countries} />
+                <button className='btn bg-light text-dark btn-outline-primary border-3 position-relative top-0 start-0 ms-4 my-3' onClick={() => hideGraphPanel()}>Back</button>
+                <SelectRenewableEnergy countries={countries} years={years}/>
             </div>
             <div className="container panel panel-default d-none" id='panel4'>
-                <button className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-relative top-0 start-0 ms-4' onClick={() => hideGraphPanel()}>Back</button>
-                <SelectTop5Countries />
+                <button className='btn bg-light text-dark btn-outline-primary border-3 position-relative top-0 start-0 ms-4 my-3' onClick={() => hideGraphPanel()}>Back</button>
+                <SelectTop5Countries years={years}/>
             </div>
             <div className="container panel panel-default d-none" id='panel5'>
-                <button className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-relative top-0 start-0 ms-4' onClick={() => hideGraphPanel()}>Back</button>
+                <button className='btn bg-light text-dark btn-outline-primary border-3 position-relative top-0 start-0 ms-4 my-3' onClick={() => hideGraphPanel()}>Back</button>
                 <SelectNuclearGraph countries={countries} />
             </div>
         </div>
