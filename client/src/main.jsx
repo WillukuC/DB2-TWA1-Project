@@ -9,7 +9,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const router = createBrowserRouter([
   { path: "/home", element: <HomePage /> },
   { path: "/selection", element: <GraphSelection /> },
-  { path: "/graph", element: <GraphDisplay /> },
+  { path: "/graph-display", element: <GraphDisplay /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

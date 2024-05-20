@@ -1,5 +1,4 @@
 import { React, useState } from 'react'
-import GenerateGraphButton from './GenerateGraphButton'
 
 function SelectNuclearGraph(props) {
   const [country, setCountry] = useState("")
@@ -10,7 +9,7 @@ function SelectNuclearGraph(props) {
 
   const handleSend = () => {
     if (country == "Select Country" || country == "") {
-      console.log("please select a country")
+      alert("Please select a country")
     } else {
       console.log(country)
     }

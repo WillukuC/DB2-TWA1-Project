@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import React from 'react'
 import SelectFossilEnergy from '../Components/SelectFossilEnergy';
 import SelectRenewableEnergy from '../Components/SelectRenewableEnergy';
@@ -7,7 +8,36 @@ import SelectNuclearGraph from '../Components/SelectNuclearGraph';
 
 function GraphSelection() {
 
+    const navigate = useNavigate();
     const [graphOption, setGraphOption] = useState("fossil");
+    const [countries, setCountries] = useState([])
+
+    useEffect(() => {
+        callCountries();
+    }, []);
+
+    const callCountries = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/countries", {
+                method: "GET"
+            });
+
+            console.log("response: ", response)
+
+            if (!response.ok) {
+                const error = await response.json();
+                console.log(error);
+                throw new Error(error.message);
+            }
+            console.log("Trying to get data");
+            const data = await response.json();
+            console.log("data: ", data)
+            setCountries(data)
+        } catch (error) {
+            console.log("caught errors")
+            console.log(error);
+        }
+    }
 
     const showPanel = (panelNum) => {
         var panel = document.getElementById(panelNum)
@@ -63,22 +93,6 @@ function GraphSelection() {
         hidePanel("panel4");
         hidePanel("panel5")
     }
-
-    const countries = [
-        "Australia",
-        "Brazil",
-        "Canada",
-        "Denmark",
-        "Egypt",
-        "France",
-        "Germany",
-        "Hungary",
-        "India",
-        "Japan",
-        "Kenya",
-        "Luxembourg",
-        "Malaysia",
-    ];
 
     const years = [];
     const currentYear = new Date().getFullYear()

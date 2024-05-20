@@ -16,10 +16,10 @@ app.get('/hello', function(req, res) {
 });
 
 app.get('/countries', async function(req, res) {
-
+    res.send(["Australia", "Canada", "Denmark"])
 })
 
-app.get('/graph', async function(req, res) {
+app.post('/graph', async function(req, res) {
     graphType = req.query.type
     console.log('graphType: ', graphType);
     let scriptPath
