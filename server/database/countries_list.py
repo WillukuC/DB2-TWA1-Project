@@ -1,4 +1,6 @@
 import csv
+import os
+import json
 
 # Function to read the countries from a CSV file and return them as a list
 def read_countries_from_csv(file_path):
@@ -13,10 +15,10 @@ def read_countries_from_csv(file_path):
     return countries
 
 # Specify the path to your CSV file
-csv_file_path = 'countries.csv'
+csv_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),'countries.csv')
 
 # Get the list of countries
 countries_list = read_countries_from_csv(csv_file_path)
 
 # Print the list of countries
-print(countries_list)
+print(json.dumps(countries_list))

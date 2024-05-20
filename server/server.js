@@ -18,10 +18,26 @@ app.get('/hello', function(req, res) {
 });
 
 app.get('/countries', async function(req, res) {
-    res.send(["Australia", "Canada", "Denmark"])
+    try {
+        // Initializing args as empty
+        const args = []
+        // Setting scriptPath
+        const scriptPath = path.join(__dirname, 'database', 'countries_list.py')
+        // Getting the list of countries
+        const countries_list = await runScriptModule.runPythonScript(scriptPath, args)
+        const parsedCountries = JSON.parse(countries_list);
+        // If successful
+        res.status(200)
+        res.send(parsedCountries)
+    } catch (err) {
+        // Handle errors
+        console.error('Internal Server Error');
+        res.status(500)
+        res.send({message: 'Internal Server Error'})
+    }
 })
 
-app.get('/graph', async function(req, res) {
+app.post('/graph', async function(req, res) {
     // Variables and constants
     const graphType = req.query.type
     const body = req.body
