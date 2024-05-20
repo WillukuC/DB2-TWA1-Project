@@ -1,19 +1,28 @@
-import { React, useState } from 'react'
+import { React, useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom';
 
 function SelectNuclearGraph(props) {
-  const [country, setCountry] = useState("")
 
+  const navigate = useNavigate();
+  const [country, setCountry] = useState("")
+  
   const selectCountry = (event) => {
     setCountry(event.target.value)
   }
 
-  const handleSend = () => {
+  const handleNavigate = () => {
     if (country == "Select Country" || country == "") {
       alert("Please select a country")
     } else {
-      console.log(country)
+      console.log("Calling Graph")
+
+      localStorage.setItem("type", "nuclear")
+      localStorage.setItem("country1", country)
+
+      navigate('/graph-display')
     }
   }
+
   return (
     <div>
       <div className="row justify-content-center">
@@ -28,7 +37,7 @@ function SelectNuclearGraph(props) {
       </div>
       <div className="row justify-content-center">
         <div className="col-3 justify-content-center text-center mt-3">
-          <button onClick={handleSend} className='btn bg-light text-dark btn-outline-primary border-3'>Generate Graph</button>
+          <button onClick={handleNavigate} className='btn bg-light text-dark btn-outline-primary border-3'>Generate Graph</button>
         </div>
       </div>
     </div>

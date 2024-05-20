@@ -1,6 +1,9 @@
 import { React, useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom';
 
 function SelectTop5Countries(props) {
+
+  const navigate = useNavigate();
   const [data, setData] = useState("")
   const [year, setYear] = useState(0)
 
@@ -12,13 +15,19 @@ function SelectTop5Countries(props) {
     setYear(event.target.value)
   }
 
-  const handleSend = () => {
+  const handleNavigate = () => {
     if (data == "Select Data" || data == "") {
       alert("Please select a data option")
     } else if (year == 0 || year == "Select Year") {
       alert("Please select a year")
     } else {
-      console.log(data, year)
+      console.log("Calling Graph")
+
+      localStorage.setItem("type", "top")
+      localStorage.setItem("data", data)
+      localStorage.setItem("year", year)
+
+      navigate('/graph-display')
     }
   }
 
@@ -27,7 +36,7 @@ function SelectTop5Countries(props) {
       <div className="row justify-content-center">
         <div className="col-3 justify-content-center text-center mt-3">
           <p>Data</p>
-          <select name="year" id="year" className="form-select" onChange={selectData}>
+          <select name="data" id="data" className="form-select" onChange={selectData}>
             <option selected>Select Data</option>
             <option value="ghg">GHG Emissions</option>
             <option value="gdp">GDP</option>
@@ -45,7 +54,7 @@ function SelectTop5Countries(props) {
       </div>
       <div className="row justify-content-center">
         <div className="col-3 justify-content-center text-center mt-3">
-          <button onClick={handleSend} className='btn bg-light text-dark btn-outline-primary border-3'>Generate Graph</button>
+          <button onClick={handleNavigate} className='btn bg-light text-dark btn-outline-primary border-3'>Generate Graph</button>
         </div>
       </div>
     </div>

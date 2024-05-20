@@ -1,6 +1,9 @@
-import { React, useState } from 'react'
+import { React, useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom';
 
 function SelectRenewableEnergy(props) {
+
+  const navigate = useNavigate();
   const [country1, setCountry1] = useState("")
   const [country2, setCountry2] = useState("")
   const [country3, setCountry3] = useState("")
@@ -27,13 +30,22 @@ function SelectRenewableEnergy(props) {
     setYear(event.target.value)
   }
 
-  const handleSend = () => {
+  const handleNavigate = () => {
     if (country1 == "Select Country" || country1 == "") {
       alert("Please select an option for Country 1")
     } else if (year == 0 || year == "Select Year"){
       alert("Please select a year")
     } else {
-      console.log(country1, country2, country3, country4, year)
+      console.log("Calling Graph")
+
+      localStorage.setItem("type", "sustainable")
+      localStorage.setItem("country1", country1)
+      localStorage.setItem("country2", country2)
+      localStorage.setItem("country3", country3)
+      localStorage.setItem("country4", country4)
+      localStorage.setItem("year", year)
+
+      navigate('/graph-display')
     }
   }
   
@@ -85,7 +97,7 @@ function SelectRenewableEnergy(props) {
       </div>
       <div className="row justify-content-center">
         <div className="col-3 justify-content-center text-center mt-3">
-          <button onClick={handleSend} className='btn bg-light text-dark btn-outline-primary border-3'>Generate Graph</button>
+          <button onClick={handleNavigate} className='btn bg-light text-dark btn-outline-primary border-3'>Generate Graph</button>
         </div>
       </div>
     </div>
