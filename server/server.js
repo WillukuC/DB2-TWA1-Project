@@ -22,9 +22,12 @@ app.get('/countries', async function(req, res) {
 })
 
 app.get('/graph', async function(req, res) {
+    // Variables and constants
     const graphType = req.query.type
     const body = req.body
     let scriptPath
+
+    // Switch case for graph type
     switch (graphType) {
         case 'fossil':
             scriptPath = path.join(__dirname, 'database', 'Line_Graph.py')
@@ -42,17 +45,20 @@ app.get('/graph', async function(req, res) {
             scriptPath = path.join(__dirname, 'testing', 'testscript.py')
             break;
         default:
+            // Handle error
             console.error('Invalid query parameter');
             res.status(400)
             res.send({message: 'Invalid query parameter'})
     }
     try {
+        // Get arguments for script
         const args = await argsModule.getArguments(graphType, body)
         console.log('args: ', args);
         
-        // Running the script
+        // Running the script to generate graph image
         const imageName = await runScriptModule.runPythonScript(scriptPath, args)
 
+        // Getting the path to the generated image
         const imagePath = path.join(__dirname, 'images', imageName).trim()
 
         // Check if the image file exists
@@ -94,6 +100,7 @@ app.get('/graph', async function(req, res) {
     }
 });
 
+// Running server
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log("Server listening on port " + port)
