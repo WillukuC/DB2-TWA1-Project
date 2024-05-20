@@ -18,7 +18,7 @@ app.get('/hello', function(req, res) {
 });
 
 app.get('/countries', async function(req, res) {
-
+    res.send(["Australia", "Canada", "Denmark"])
 })
 
 app.get('/graph', async function(req, res) {

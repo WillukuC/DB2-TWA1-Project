@@ -1,5 +1,4 @@
 import { React, useState } from 'react'
-import GenerateGraphButton from './GenerateGraphButton'
 
 function SelectRenewableEnergy(props) {
   const [country1, setCountry1] = useState("")
@@ -30,9 +29,9 @@ function SelectRenewableEnergy(props) {
 
   const handleSend = () => {
     if (country1 == "Select Country" || country1 == "") {
-      console.log("please select a country")
+      alert("Please select an option for Country 1")
     } else if (year == 0 || year == "Select Year"){
-      console.log("please select a year")
+      alert("Please select a year")
     } else {
       console.log(country1, country2, country3, country4, year)
     }

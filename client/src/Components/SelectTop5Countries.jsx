@@ -1,5 +1,4 @@
 import { React, useState } from 'react'
-import GenerateGraphButton from './GenerateGraphButton'
 
 function SelectTop5Countries(props) {
   const [data, setData] = useState("")
@@ -15,9 +14,9 @@ function SelectTop5Countries(props) {
 
   const handleSend = () => {
     if (data == "Select Data" || data == "") {
-      console.log("please select a data option")
+      alert("Please select a data option")
     } else if (year == 0 || year == "Select Year") {
-      console.log("please select a year")
+      alert("Please select a year")
     } else {
       console.log(data, year)
     }
