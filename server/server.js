@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const runScriptModule = require('./runscriptmodule.js');
 const fs = require('fs');
 const path = require('path')
+const argsModule = require('./argumentModule.js');
+
 // Middleware
 app.use(cors());
 app.use(morgan('tiny'));
@@ -20,8 +22,8 @@ app.get('/countries', async function(req, res) {
 })
 
 app.get('/graph', async function(req, res) {
-    graphType = req.query.type
-    console.log('graphType: ', graphType);
+    const graphType = req.query.type
+    const body = req.body
     let scriptPath
     switch (graphType) {
         case 'fossil':
@@ -45,8 +47,9 @@ app.get('/graph', async function(req, res) {
             res.send({message: 'Invalid query parameter'})
     }
     try {
-        const args = [1, 2, 3]
-
+        const args = await argsModule.getArguments(graphType, body)
+        console.log('args: ', args);
+        
         // Running the script
         const imageName = await runScriptModule.runPythonScript(scriptPath, args)
 
