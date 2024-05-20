@@ -3,22 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 function GraphDisplay() {
 
-  const [country1, setCountry1] = useState("")
-  const [country2, setCountry2] = useState("")
-  const [country3, setCountry3] = useState("")
-  const [country4, setCountry4] = useState("")
-  const [year, setYear] = useState(0)
-  const [info, setInfo] = useState("")
-
   useEffect(() => {
-
-    setCountry1(localStorage.getItem("country1"))
-    setCountry2(localStorage.getItem("country2"))
-    setCountry3(localStorage.getItem("country3"))
-    setCountry4(localStorage.getItem("country4"))
-    setYear(localStorage.getItem("year"))
-    setInfo(localStorage.getItem("data"))
-
     getImage();
   }, []);
 
@@ -26,16 +11,20 @@ function GraphDisplay() {
     try {
       const graphType = localStorage.getItem("type")
       const url = "http://localhost:8080/graph?type=" + graphType
+      console.log(url)
 
       const response = await fetch(url, {
         method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
-          country1: country1,
-          country2: country2,
-          country3: country3,
-          country4: country4,
-          year: year,
-          data: info
+          country1: localStorage.getItem("country1"),
+          country2: localStorage.getItem("country2"),
+          country3: localStorage.getItem("country3"),
+          country4: localStorage.getItem("country4"),
+          year: localStorage.getItem("year"),
+          data: localStorage.getItem("data")
         })
       });
 
