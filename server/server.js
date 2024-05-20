@@ -5,6 +5,8 @@ const morgan = require('morgan');
 const runScriptModule = require('./runscriptmodule.js');
 const fs = require('fs');
 const path = require('path')
+const argsModule = require('./argumentModule.js');
+
 // Middleware
 app.use(cors());
 app.use(morgan('tiny'));
@@ -16,13 +18,32 @@ app.get('/hello', function(req, res) {
 });
 
 app.get('/countries', async function(req, res) {
-    res.send(["Australia", "Canada", "Denmark"])
+    try {
+        // Initializing args as empty
+        const args = []
+        // Setting scriptPath
+        const scriptPath = path.join(__dirname, 'database', 'countries_list.py')
+        // Getting the list of countries
+        const countries_list = await runScriptModule.runPythonScript(scriptPath, args)
+        const parsedCountries = JSON.parse(countries_list);
+        // If successful
+        res.status(200)
+        res.send(parsedCountries)
+    } catch (err) {
+        // Handle errors
+        console.error('Internal Server Error');
+        res.status(500)
+        res.send({message: 'Internal Server Error'})
+    }
 })
 
 app.post('/graph', async function(req, res) {
-    graphType = req.query.type
-    console.log('graphType: ', graphType);
+    // Variables and constants
+    const graphType = req.query.type
+    const body = req.body
     let scriptPath
+
+    // Switch case for graph type
     switch (graphType) {
         case 'fossil':
             scriptPath = path.join(__dirname, 'database', 'Line_Graph.py')
@@ -40,16 +61,20 @@ app.post('/graph', async function(req, res) {
             scriptPath = path.join(__dirname, 'testing', 'testscript.py')
             break;
         default:
+            // Handle error
             console.error('Invalid query parameter');
             res.status(400)
             res.send({message: 'Invalid query parameter'})
     }
     try {
-        const args = [1, 2, 3]
-
-        // Running the script
+        // Get arguments for script
+        const args = await argsModule.getArguments(graphType, body)
+        console.log('args: ', args);
+        
+        // Running the script to generate graph image
         const imageName = await runScriptModule.runPythonScript(scriptPath, args)
 
+        // Getting the path to the generated image
         const imagePath = path.join(__dirname, 'images', imageName).trim()
 
         // Check if the image file exists
@@ -91,6 +116,7 @@ app.post('/graph', async function(req, res) {
     }
 });
 
+// Running server
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log("Server listening on port " + port)
