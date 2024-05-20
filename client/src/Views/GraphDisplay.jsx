@@ -9,8 +9,23 @@ function GraphDisplay() {
 
   const getImage = async () => {
     try {
-      const response = await fetch("http://localhost:8080/graph?type=test", {
-        method: "POST"
+      const graphType = localStorage.getItem("type")
+      const url = "http://localhost:8080/graph?type=" + graphType
+      console.log(url)
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          country1: localStorage.getItem("country1"),
+          country2: localStorage.getItem("country2"),
+          country3: localStorage.getItem("country3"),
+          country4: localStorage.getItem("country4"),
+          year: localStorage.getItem("year"),
+          data: localStorage.getItem("data")
+        })
       });
 
       console.log("response: ", response)
@@ -20,6 +35,7 @@ function GraphDisplay() {
         console.log(error);
         throw new Error(error.message);
       }
+
       console.log("Trying to get data");
       const data = await response.json();
       console.log("data: ", data)
@@ -33,7 +49,14 @@ function GraphDisplay() {
   return (
     <div>
       <a href="/selection" className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-absolute top-0 start-0 ms-4'>Back</a>
-
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col">
+            <img src="" alt="" />
+            <p>Source: </p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
