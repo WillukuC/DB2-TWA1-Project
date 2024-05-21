@@ -13,7 +13,7 @@ function GraphDisplay() {
   const getImage = async () => {
     try {
       const graphType = localStorage.getItem("type");
-      const url = "http://localhost:8080/graph?type=" + graphType;
+      const url = "/graph?type=" + graphType;
       console.log(url);
 
       const response = await fetch(url, {
