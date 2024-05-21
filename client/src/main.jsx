@@ -7,13 +7,13 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
-  { path: "/home", element: <HomePage /> },
+  { path: "/", element: <HomePage /> },
   { path: "/selection", element: <GraphSelection /> },
   { path: "/graph-display", element: <GraphDisplay /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  <React>
     <RouterProvider router={router} />
-  </React.StrictMode>,
+  </React>,
 )

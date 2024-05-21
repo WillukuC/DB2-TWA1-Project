@@ -103,7 +103,7 @@ function GraphSelection() {
 
     return (
         <div>
-            <a href="/home" className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-absolute top-0 start-0 ms-4'>To Homepage</a>
+            <a href="/" className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-absolute top-0 start-0 ms-4'>To Homepage</a>
             <div className="container panel panel-default d-block" id='panel1'>
                 <div className="row justify-content-center">
                     <div className="col-3">
