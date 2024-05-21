@@ -15,10 +15,10 @@ app.use(express.json());
 // Functions
 function deleteFilesInDirectory(directoryPath) {
     fs.readdirSync(directoryPath).forEach(file => {
-        const filePath = path.join(directoryPath, file);
+        const filePath = path.join(directoryPath, file)
         if (fs.lstatSync(filePath).isFile()) {
             fs.unlinkSync(filePath);
-            console.log(`Deleted ${filePath}`);
+            console.log(`Deleted ${filePath}`)
         }
     });
 }
