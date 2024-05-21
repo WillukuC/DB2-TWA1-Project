@@ -38,9 +38,9 @@ function SelectTop5Countries(props) {
           <p>Data</p>
           <select name="data" id="data" className="form-select" onChange={selectData}>
             <option selected>Select Data</option>
-            <option value="ghg">GHG Emissions</option>
+            <option value="greenhouse_gas_emissions">GHG Emissions</option>
             <option value="gdp">GDP</option>
-            <option value="pop">Population</option>
+            <option value="population">Population</option>
           </select>
         </div>
         <div className="col-3 justify-content-center text-center mt-3">
