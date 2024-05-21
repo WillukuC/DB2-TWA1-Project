@@ -122,7 +122,7 @@ app.post('/graph', async function(req, res) {
 });
 
 // Running server
-const port = 8080;
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log("Server listening on port " + port)
 });
