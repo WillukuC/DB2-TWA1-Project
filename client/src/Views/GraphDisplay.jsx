@@ -3,6 +3,8 @@ import { useNavigate, Link } from 'react-router-dom';
 
 function GraphDisplay() {
 
+  const [imageSrc, setImageSrc] = useState('');
+
   useEffect(() => {
     getImage();
   }, []);
@@ -36,10 +38,9 @@ function GraphDisplay() {
         throw new Error(error.message);
       }
 
-      console.log("Trying to get data");
-      const data = await response.json();
-      console.log("data: ", data)
-      setCountries(data)
+      const blob = await response.blob();
+      const imageUrl = URL.createObjectURL(blob)
+      setImageSrc(imageUrl)
     } catch (error) {
       console.log("caught errors")
       console.log(error);
@@ -52,7 +53,7 @@ function GraphDisplay() {
       <div className="container">
         <div className="row justify-content-center">
           <div className="col">
-            <img src="" alt="" />
+            {imageSrc && <img src={imageSrc} alt="Graph" width={600}/>}
             <p>Source: </p>
           </div>
         </div>
