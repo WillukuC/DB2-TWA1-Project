@@ -16,8 +16,11 @@ function runPythonScript(script, args) {
         
         result.on('close', (code) => {
             if (code === 0) {
-                console.log(output)
-                resolve(output);
+                if (output.trim()) {
+                    resolve(output.trim());
+                } else {
+                    reject('No output received from the Python script.');
+                }
             } else {
                 reject(`Python process exited with code ${code}`);
             }

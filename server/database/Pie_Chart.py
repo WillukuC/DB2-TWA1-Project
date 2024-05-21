@@ -35,7 +35,7 @@ def generate_pie_charts(year, countries):
         if data:
             energy_values = [data[energy] for energy in energies if energy in data]
             if len(energy_values) < 4:
-                print(f'Not enough data available for {country} in {year}.')
+                print(f'Not enough data available for {country} in {year}.', file=sys.stderr)
                 return
 
             # Plot pie chart for the current country
@@ -45,9 +45,9 @@ def generate_pie_charts(year, countries):
             plt.suptitle(f'Sustainable Energy Consumption {country} ({year})')
             plt.tight_layout()
             plt.savefig(os.path.join(images_path, 'Country_Consumption.png'))
-            
+            print('Country_Consumption.png')
         else:
-            print(f"No data found for {country} in {year}")
+            print(f"No data found for {country} in {year}", file=sys.stderr)
     else:
         # Query sustainable energy consumption data for the specified year and countries
         for i, country in enumerate(countries):
@@ -62,7 +62,7 @@ def generate_pie_charts(year, countries):
                 energy_values = [data[energy] for energy in energies if energy in data]
     
                 if len(energy_values) < 4:
-                    print(f'Not enough data available for {country} in {year}.')
+                    print(f'Not enough data available for {country} in {year}.', file=sys.stderr)
                     continue
 
                 # Plot pie chart for the current country
