@@ -9,31 +9,56 @@ function SelectRenewableEnergy(props) {
   const [country3, setCountry3] = useState("")
   const [country4, setCountry4] = useState("")
   const [year, setYear] = useState(0)
-  
+
   const selectCountry1 = (event) => {
-    setCountry1(event.target.value)
+    const country = event.target.value
+    if (country != "Select Country" && country != "") {
+      setCountry1(country)
+    } else {
+      setCountry1("")
+    }
   }
 
   const selectCountry2 = (event) => {
-    setCountry2(event.target.value)
+    const country = event.target.value
+    if (country != "Select Country" && country != "") {
+      setCountry2(country)
+    } else {
+      setCountry2("")
+    }
   }
 
   const selectCountry3 = (event) => {
-    setCountry3(event.target.value)
+    const country = event.target.value
+    if (country != "Select Country" && country != "") {
+      setCountry3(country)
+    } else {
+      setCountry3("")
+    }
   }
 
   const selectCountry4 = (event) => {
-    setCountry4(event.target.value)
+    const country = event.target.value
+    if (country != "Select Country" && country != "") {
+      setCountry4(country)
+    } else {
+      setCountry4("")
+    }
   }
 
   const selectYear = (event) => {
-    setYear(event.target.value)
+    const year = event.target.value
+    if (year != "Select year" && year != "") {
+      setYear(year)
+    } else {
+      setYear("")
+    }
   }
 
   const handleNavigate = () => {
     if (country1 == "Select Country" || country1 == "") {
       alert("Please select an option for Country 1")
-    } else if (year == 0 || year == "Select Year"){
+    } else if (year == 0 || year == "Select Year") {
       alert("Please select a year")
     } else {
       console.log("Calling Graph")
@@ -48,7 +73,7 @@ function SelectRenewableEnergy(props) {
       navigate('/graph-display')
     }
   }
-  
+
   return (
     <div className="container">
       <div className="row justify-content-center">
