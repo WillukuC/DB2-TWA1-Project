@@ -13,7 +13,7 @@ function GraphDisplay() {
   const getImage = async () => {
     try {
       const graphType = localStorage.getItem("type");
-      const url = "/graph?type=" + graphType;
+      const url = "http://localhost:8080/graph?type=" + graphType;
       console.log(url);
 
       const response = await fetch(url, {
@@ -62,7 +62,7 @@ function GraphDisplay() {
   const handleDownload = () => {
     const anchor = document.createElement('a');
     anchor.href = imageSrc;
-    anchor.download = 'graph.png'; // You can specify the filename here
+    anchor.download = 'graph.png'; 
     anchor.click();
   }
 

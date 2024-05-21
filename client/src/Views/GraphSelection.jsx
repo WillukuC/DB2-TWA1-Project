@@ -19,7 +19,7 @@ function GraphSelection() {
 
     const callCountries = async () => {
         try {
-            const response = await fetch("/countries", {
+            const response = await fetch("http://localhost:8080/countries", {
                 method: "GET"
             });
 
