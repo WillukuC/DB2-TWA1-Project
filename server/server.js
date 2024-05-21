@@ -97,6 +97,10 @@ app.post('/graph', async function(req, res) {
 
         // Send the image file
         stream = fs.createReadStream(imagePath)
+        stream.on('error', err => {
+            console.error('Stream error: ', err);
+            res.status(500).send({ message: 'Internal Server Error' });
+          });
         stream.pipe(res)
     } catch (err) {
         console.error('Server error: ', err)
