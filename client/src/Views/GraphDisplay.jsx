@@ -59,6 +59,13 @@ function GraphDisplay() {
     }
   }
 
+  const handleDownload = () => {
+    const anchor = document.createElement('a');
+    anchor.href = imageSrc;
+    anchor.download = 'graph.png'; // You can specify the filename here
+    anchor.click();
+  }
+
   return (
     <div>
       <Link to="/selection" className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-absolute top-0 start-0 ms-4'>Back</Link>
@@ -66,13 +73,16 @@ function GraphDisplay() {
         <div className="row justify-content-center">
           <div className="col">
             {loading ? (
-              <img src="/loading.gif" alt="Loading..." width={100}/>
+              <img src="/loading.gif" alt="Loading..." width={100} />
             ) : error ? (
               <p>{error}</p>
             ) : (
-              <img src={imageSrc} alt="Generated graph" width={500}/>
+              <img src={imageSrc} alt="Generated graph" width={500} />
             )}
             <p>Source: </p>
+            <div>
+              <button onClick={handleDownload} className="btn btn-primary mt-3">Download Image</button>
+            </div>
           </div>
         </div>
       </div>
