@@ -12,15 +12,18 @@ app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
 
+// Client build
+app.use('/', express.static(path.join(__dirname, 'dist'))); 
+
 // Functions
-function deleteFilesInDirectory(directoryPath) {
+function deletePNGFilesInDirectory(directoryPath) {
     fs.readdirSync(directoryPath).forEach(file => {
         const filePath = path.join(directoryPath, file)
-        if (fs.lstatSync(filePath).isFile()) {
-            fs.unlinkSync(filePath);
+        if (fs.lstatSync(filePath).isFile() && path.extname(file) === '.png') {
+            fs.unlinkSync(filePath)
             console.log(`Deleted ${filePath}`)
         }
-    });
+    })
 }
 
 // Routes
@@ -84,7 +87,7 @@ app.post('/graph', async function(req, res) {
         
         // Deleting contents of images
         const imagesFolderPath = path.join(__dirname, 'images')
-        deleteFilesInDirectory(imagesFolderPath)
+        deletePNGFilesInDirectory(imagesFolderPath)
 
         // Running the script to generate graph image
         const imageName = await runScriptModule.runPythonScript(scriptPath, args)
@@ -119,7 +122,7 @@ app.post('/graph', async function(req, res) {
 });
 
 // Running server
-const port = process.env.PORT || 8080;
+const port = 8080;
 app.listen(port, () => {
     console.log("Server listening on port " + port)
 });

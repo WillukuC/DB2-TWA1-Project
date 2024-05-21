@@ -3,7 +3,7 @@ const subprocess = require('child_process')
 function runPythonScript(script, args) {
     return new Promise((resolve, reject) => {
         
-        const result = subprocess.spawn(`python "${script}"`, [...args], { shell: true });
+        const result = subprocess.spawn(`python3 "${script}"`, [...args], { shell: true });
         let output = '';
         
         result.stdout.on('data', (data) => {
