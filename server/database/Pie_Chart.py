@@ -45,7 +45,7 @@ def generate_pie_charts(year, countries):
             plt.suptitle(f'Sustainable Energy Consumption {country} ({year})')
             plt.tight_layout()
             plt.savefig(os.path.join(images_path, 'Country_Consumption.png'))
-            plt.show()
+            
         else:
             print(f"No data found for {country} in {year}")
     else:
