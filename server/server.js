@@ -7,8 +7,13 @@ const fs = require('fs');
 const path = require('path')
 const argsModule = require('./argumentModule.js');
 
+const corsOptions = {
+    origin: 'http://twa1-db2-application-env.eba-xptkhmpa.us-east-1.elasticbeanstalk.com',
+    optionsSuccessStatus: 200,
+  };
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(morgan('tiny'));
 app.use(express.json());
 
