@@ -71,6 +71,14 @@ app.post('/graph', async function(req, res) {
         const args = await argsModule.getArguments(graphType, body)
         console.log('args: ', args);
         
+        // Deleting contents of images
+        const imagesFolderPath = path.join(__dirname, 'images');
+        fs.readdirSync(imagesFolderPath).forEach(file => {
+            const filePath = path.join(imagesFolderPath, file);
+            fs.unlinkSync(filePath);
+            console.log(`Deleted ${filePath}`);
+        });
+
         // Running the script to generate graph image
         const imageName = await runScriptModule.runPythonScript(scriptPath, args)
 
@@ -90,25 +98,6 @@ app.post('/graph', async function(req, res) {
         // Send the image file
         stream = fs.createReadStream(imagePath)
         stream.pipe(res)
-
-        // If the file has been recieved by the client
-        stream.on('end', () => {
-            // Delete image file if successful
-            fs.unlink(imagePath, (err) => {
-                if (err) {
-                    console.error('Failed to delete image:', err)
-                } else {
-                    console.log('Image successfully deleted')
-                }
-            })
-        })
-
-        // Check for errors occuring when deleting
-        stream.on('error', (err) => {
-            console.error('Stream error: ', err);
-            res.status(500)
-            res.send({message: 'Internal Server Error'});
-        })
     } catch (err) {
         console.error('Server error: ', err)
         res.status(500)
