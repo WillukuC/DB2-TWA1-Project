@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 
 function HomePage() {
 
-  navigate = useNavigate()
+  const navigate = useNavigate()
 
   const navSelection = () => {
     navigate('/selection')
