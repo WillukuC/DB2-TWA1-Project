@@ -62,7 +62,7 @@ function GraphDisplay() {
   const handleDownload = () => {
     const anchor = document.createElement('a');
     anchor.href = imageSrc;
-    anchor.download = 'graph.png'; // You can specify the filename here
+    anchor.download = 'graph.png'; 
     anchor.click();
   }
 

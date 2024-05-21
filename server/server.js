@@ -121,6 +121,11 @@ app.post('/graph', async function(req, res) {
     }
 });
 
+// Catch-all route to handle SPA
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
 // Running server
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
