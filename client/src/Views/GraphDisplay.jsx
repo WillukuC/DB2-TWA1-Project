@@ -71,18 +71,17 @@ function GraphDisplay() {
       <Link to="/selection" className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-absolute top-0 start-0 ms-4'>Back</Link>
       <div className="container">
         <div className="row justify-content-center">
-          <div className="col">
+          <div className="col justify-content-center text-center">
             {loading ? (
               <img src="/loading.gif" alt="Loading..." width={100} />
             ) : error ? (
               <p>{error}</p>
             ) : (
-              <img src={imageSrc} alt="Generated graph" width={500} />
+              <div>
+                <img src={imageSrc} alt="Generated graph" style={{ maxWidth: '100%', height: 'auto' }} />
+                <button onClick={handleDownload} className="btn btn-primary mt-3">Download Result</button>
+              </div>
             )}
-            <p>Source: </p>
-            <div>
-              <button onClick={handleDownload} className="btn btn-primary mt-3">Download Image</button>
-            </div>
           </div>
         </div>
       </div>
