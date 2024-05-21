@@ -12,6 +12,17 @@ app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
 
+// Functions
+function deleteFilesInDirectory(directoryPath) {
+    fs.readdirSync(directoryPath).forEach(file => {
+        const filePath = path.join(directoryPath, file);
+        if (fs.lstatSync(filePath).isFile()) {
+            fs.unlinkSync(filePath);
+            console.log(`Deleted ${filePath}`);
+        }
+    });
+}
+
 // Routes
 app.get('/hello', function(req, res) {
     res.send('Hello World')
@@ -72,18 +83,16 @@ app.post('/graph', async function(req, res) {
         console.log('args: ', args);
         
         // Deleting contents of images
-        const imagesFolderPath = path.join(__dirname, 'images');
-        fs.readdirSync(imagesFolderPath).forEach(file => {
-            const filePath = path.join(imagesFolderPath, file);
-            fs.unlinkSync(filePath);
-            console.log(`Deleted ${filePath}`);
-        });
+        const imagesFolderPath = path.join(__dirname, 'images')
+        deleteFilesInDirectory(imagesFolderPath)
 
         // Running the script to generate graph image
         const imageName = await runScriptModule.runPythonScript(scriptPath, args)
+        console.log('imageName: ', imageName);
 
         // Getting the path to the generated image
-        const imagePath = path.join(__dirname, 'images', imageName).trim()
+        const imagePath = path.join(imagesFolderPath, imageName).trim()
+        console.log('imagePath: ', imagePath);
 
         // Check if the image file exists
         if (!fs.existsSync(imagePath)) {
