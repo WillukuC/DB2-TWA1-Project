@@ -1,9 +1,10 @@
-import { useEffect, React, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 function GraphDisplay() {
-
   const [imageSrc, setImageSrc] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     getImage();
@@ -11,9 +12,9 @@ function GraphDisplay() {
 
   const getImage = async () => {
     try {
-      const graphType = localStorage.getItem("type")
-      const url = "http://localhost:8080/graph?type=" + graphType
-      console.log(url)
+      const graphType = localStorage.getItem("type");
+      const url = "http://localhost:8080/graph?type=" + graphType;
+      console.log(url);
 
       const response = await fetch(url, {
         method: "POST",
@@ -30,36 +31,53 @@ function GraphDisplay() {
         })
       });
 
-      console.log("response: ", response)
-
       if (!response.ok) {
-        const error = await response.json();
-        console.log(error);
-        throw new Error(error.message);
+        const errorText = await response.text();
+        console.log("Error response text:", errorText);
+        throw new Error(`Error: ${response.status} - ${errorText}`);
       }
 
-      const blob = await response.blob();
-      const imageUrl = URL.createObjectURL(blob)
-      setImageSrc(imageUrl)
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        const data = await response.json();
+        console.log("data: ", data);
+      } else if (contentType && contentType.includes("image/png")) {
+        const blob = await response.blob();
+        const imageUrl = URL.createObjectURL(blob);
+        setImageSrc(imageUrl);
+      } else {
+        const text = await response.text();
+        console.log("Unexpected response text:", text);
+        throw new Error("Unexpected response format");
+      }
     } catch (error) {
-      console.log("caught errors")
+      console.log("caught errors");
       console.log(error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
     <div>
-      <a href="/selection" className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-absolute top-0 start-0 ms-4'>Back</a>
+      <Link to="/selection" className='btn bg-light text-dark btn-outline-primary border-3 mt-4 position-absolute top-0 start-0 ms-4'>Back</Link>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col">
-            {imageSrc && <img src={imageSrc} alt="Graph" width={600}/>}
+            {loading ? (
+              <img src="/loading.gif" alt="Loading..." width={100}/>
+            ) : error ? (
+              <p>{error}</p>
+            ) : (
+              <img src={imageSrc} alt="Generated graph" width={500}/>
+            )}
             <p>Source: </p>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default GraphDisplay
+export default GraphDisplay;

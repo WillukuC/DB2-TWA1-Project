@@ -14,6 +14,7 @@ function GraphSelection() {
 
     useEffect(() => {
         callCountries();
+        localStorage.clear()
     }, []);
 
     const callCountries = async () => {
